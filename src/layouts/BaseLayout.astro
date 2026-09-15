@@ -2,6 +2,7 @@
 import "../styles/global.css";
 import interLatin400 from "@fontsource/inter/files/inter-latin-400-normal.woff2?url";
 import playfairLatin700 from "@fontsource/playfair-display/files/playfair-display-latin-700-normal.woff2?url";
+import Loader from "../components/Loader.astro";
 
 interface Props {
   title: string;
@@ -42,6 +43,7 @@ const siteUrl = "https://ionascuandrey.github.io";
     <meta name="generator" content={Astro.generator} />
   </head>
   <body class="bg-background font-sans text-slate-800 antialiased">
+    <Loader />
     <slot />
   </body>
 </html>

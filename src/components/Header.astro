@@ -1,86 +1,111 @@
 ---
+import {
+  Home,
+  User,
+  Wrench,
+  Briefcase,
+  FolderGit2,
+  Award,
+  Users,
+  Mail,
+  Menu,
+  X,
+} from "lucide-react";
+
 interface NavItem {
   href: string;
   label: string;
+  icon: typeof Home;
 }
 
 const navItems: NavItem[] = [
-  { href: "#about", label: "About" },
-  { href: "#skills", label: "Skills" },
-  { href: "#experience", label: "Experience" },
-  { href: "#projects", label: "Projects" },
-  { href: "#certifications", label: "Certifications" },
-  { href: "#leadership", label: "Leadership" },
-  { href: "#contact", label: "Contact" },
+  { href: "#top", label: "Home", icon: Home },
+  { href: "#about", label: "About", icon: User },
+  { href: "#skills", label: "Skills", icon: Wrench },
+  { href: "#experience", label: "Experience", icon: Briefcase },
+  { href: "#projects", label: "Projects", icon: FolderGit2 },
+  { href: "#certifications", label: "Certifications", icon: Award },
+  { href: "#leadership", label: "Leadership", icon: Users },
+  { href: "#contact", label: "Contact", icon: Mail },
 ];
 ---
 
-<header class="sticky top-0 z-50 border-b border-slate-200 bg-background/90 backdrop-blur">
-  <div class="mx-auto flex max-w-5xl items-center justify-between px-6 py-4">
+<a
+  href="#top"
+  class="fixed left-6 top-6 z-50 flex items-center gap-2 rounded-full border border-slate-200 bg-background/80 px-3 py-1.5 font-serif text-sm font-bold text-slate-900 shadow-sm backdrop-blur"
+>
+  <span class="h-2 w-2 rounded-full bg-accent"></span>
+  Ionașcu Andrei
+</a>
+
+<nav
+  aria-label="Primary"
+  class="fixed left-6 top-1/2 z-50 hidden -translate-y-1/2 flex-col items-center gap-1 rounded-full border border-slate-200 bg-background/80 p-2 shadow-sm backdrop-blur md:flex"
+>
+  {navItems.map((item) => (
     <a
-      href="#top"
-      class="flex items-center gap-2 font-serif text-lg font-bold text-slate-900"
+      href={item.href}
+      aria-label={item.label}
+      class="group relative flex h-10 w-10 items-center justify-center rounded-full text-slate-500 transition-colors hover:bg-accent/10 hover:text-accent"
     >
-      <span class="h-2 w-2 rounded-full bg-accent"></span>
-      Ionașcu Andrei
-    </a>
-
-    <nav class="hidden gap-6 md:flex" aria-label="Primary">
-      {navItems.map((item) => (
-        <a
-          href={item.href}
-          class="text-sm font-medium text-slate-600 transition-colors hover:text-accent"
-        >
-          {item.label}
-        </a>
-      ))}
-    </nav>
-
-    <button
-      id="mobile-menu-toggle"
-      type="button"
-      class="flex flex-col gap-1.5 md:hidden"
-      aria-expanded="false"
-      aria-controls="mobile-menu"
-      aria-label="Toggle navigation menu"
-    >
-      <span class="block h-0.5 w-6 bg-slate-800"></span>
-      <span class="block h-0.5 w-6 bg-slate-800"></span>
-      <span class="block h-0.5 w-6 bg-slate-800"></span>
-    </button>
-  </div>
-
-  <nav
-    id="mobile-menu"
-    aria-label="Mobile"
-    hidden
-    class="flex flex-col gap-1 border-t border-slate-200 px-6 py-4 md:hidden"
-  >
-    {navItems.map((item) => (
-      <a
-        href={item.href}
-        class="rounded px-2 py-2 text-sm font-medium text-slate-600 hover:bg-slate-100 hover:text-accent"
-      >
+      <item.icon size={18} />
+      <span class="pointer-events-none absolute left-full ml-3 origin-left scale-95 whitespace-nowrap rounded-md bg-slate-900 px-2.5 py-1 font-sans text-xs font-medium text-white opacity-0 shadow-md transition-all duration-150 group-hover:scale-100 group-hover:opacity-100">
         {item.label}
-      </a>
-    ))}
-  </nav>
-</header>
+      </span>
+    </a>
+  ))}
+</nav>
+
+<button
+  id="mobile-menu-toggle"
+  type="button"
+  class="fixed right-6 top-6 z-50 flex h-10 w-10 items-center justify-center rounded-full border border-slate-200 bg-background/80 text-slate-700 shadow-sm backdrop-blur md:hidden"
+  aria-expanded="false"
+  aria-controls="mobile-menu"
+  aria-label="Toggle navigation menu"
+>
+  <Menu id="mobile-menu-icon-open" size={18} />
+  <X id="mobile-menu-icon-close" size={18} className="hidden" />
+</button>
+
+<nav
+  id="mobile-menu"
+  aria-label="Mobile"
+  hidden
+  class="fixed inset-0 z-40 flex flex-col items-center justify-center gap-2 bg-slate-950/97 backdrop-blur md:hidden"
+>
+  {navItems.map((item) => (
+    <a
+      href={item.href}
+      class="flex items-center gap-3 rounded-lg px-4 py-3 text-lg font-medium text-slate-200 transition-colors hover:text-accent"
+    >
+      <item.icon size={20} />
+      {item.label}
+    </a>
+  ))}
+</nav>
 
 <script>
   const toggle = document.getElementById("mobile-menu-toggle");
   const menu = document.getElementById("mobile-menu");
+  const iconOpen = document.getElementById("mobile-menu-icon-open");
+  const iconClose = document.getElementById("mobile-menu-icon-close");
+
+  function setOpen(open: boolean) {
+    if (!menu || !toggle) return;
+    menu.hidden = !open;
+    toggle.setAttribute("aria-expanded", String(open));
+    iconOpen?.classList.toggle("hidden", open);
+    iconClose?.classList.toggle("hidden", !open);
+    document.documentElement.style.overflow = open ? "hidden" : "";
+  }
 
   toggle?.addEventListener("click", () => {
     if (!menu) return;
-    menu.hidden = !menu.hidden;
-    toggle.setAttribute("aria-expanded", String(!menu.hidden));
+    setOpen(Boolean(menu.hidden));
   });
 
   menu?.querySelectorAll("a").forEach((link) => {
-    link.addEventListener("click", () => {
-      if (menu) menu.hidden = true;
-      toggle?.setAttribute("aria-expanded", "false");
-    });
+    link.addEventListener("click", () => setOpen(false));
   });
 </script>

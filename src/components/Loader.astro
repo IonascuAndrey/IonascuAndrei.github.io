@@ -1,0 +1,93 @@
+---
+---
+
+<div
+  id="loader"
+  class="fixed inset-0 z-[100] flex flex-col items-center justify-center gap-6 bg-slate-950 text-slate-100 transition-opacity duration-500"
+>
+  <div class="pointer-events-none absolute inset-0 opacity-50 [background-image:linear-gradient(to_right,rgba(148,163,184,0.08)_1px,transparent_1px),linear-gradient(to_bottom,rgba(148,163,184,0.08)_1px,transparent_1px)] [background-size:40px_40px] [mask-image:radial-gradient(ellipse_at_center,black_10%,transparent_70%)]"></div>
+
+  <div class="relative flex flex-col items-center gap-3">
+    <span
+      id="loader-status"
+      class="font-mono text-xs uppercase tracking-[0.3em] text-accent"
+    >
+      Loading dataset
+    </span>
+    <span
+      id="loader-count"
+      class="font-mono text-4xl font-semibold tabular-nums text-white"
+    >
+      00%
+    </span>
+  </div>
+
+  <div class="relative h-1 w-48 overflow-hidden rounded-full bg-slate-800">
+    <div
+      id="loader-bar"
+      class="h-full w-0 rounded-full bg-accent transition-[width] duration-150 ease-out"
+    ></div>
+  </div>
+</div>
+
+<script>
+  const loader = document.getElementById("loader");
+  const countEl = document.getElementById("loader-count");
+  const barEl = document.getElementById("loader-bar");
+  const statusEl = document.getElementById("loader-status");
+  const statuses = [
+    "Loading dataset",
+    "Parsing schema",
+    "Building index",
+    "Rendering pipeline",
+  ];
+
+  const reduceMotion = window.matchMedia(
+    "(prefers-reduced-motion: reduce)",
+  ).matches;
+
+  function finish() {
+    if (!loader) return;
+    if (countEl) countEl.textContent = "100%";
+    if (barEl) barEl.style.width = "100%";
+    loader.style.opacity = "0";
+    document.documentElement.style.overflow = "";
+    window.setTimeout(() => loader.remove(), 550);
+  }
+
+  if (!loader) {
+    // no-op, nothing to animate
+  } else if (reduceMotion) {
+    loader.remove();
+  } else {
+    document.documentElement.style.overflow = "hidden";
+    let statusIndex = 0;
+    const start = performance.now();
+    const minDuration = 900;
+
+    function tick(now: number) {
+      const elapsed = now - start;
+      const progress = Math.min(100, Math.round((elapsed / minDuration) * 100));
+      if (countEl)
+        countEl.textContent = `${String(progress).padStart(2, "0")}%`;
+      if (barEl) barEl.style.width = `${progress}%`;
+
+      const nextStatusIndex = Math.min(
+        statuses.length - 1,
+        Math.floor((progress / 100) * statuses.length),
+      );
+      if (nextStatusIndex !== statusIndex) {
+        statusIndex = nextStatusIndex;
+        if (statusEl) statusEl.textContent = statuses[statusIndex];
+      }
+
+      if (elapsed < minDuration || document.readyState !== "complete") {
+        requestAnimationFrame(tick);
+      } else {
+        finish();
+      }
+    }
+
+    requestAnimationFrame(tick);
+  }
+</script>

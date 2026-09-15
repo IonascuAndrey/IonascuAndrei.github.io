@@ -1,5 +1,5 @@
 ---
-import { Mail, ExternalLink, Download } from "lucide-react";
+import { Mail, ExternalLink, Download, ChevronDown } from "lucide-react";
 
 const contact = {
   email: "ionascuandrei320@gmail.com",
@@ -10,53 +10,66 @@ const contact = {
 
 const ctaBase =
   "inline-flex items-center gap-2 rounded-md px-5 py-2.5 text-sm font-medium transition-colors";
-const ctaPrimary = `${ctaBase} bg-slate-900 text-white hover:bg-accent`;
-const ctaSecondary = `${ctaBase} border border-slate-300 text-slate-700 hover:border-accent hover:text-accent`;
+const ctaPrimary = `${ctaBase} bg-accent text-white hover:bg-accent/85`;
+const ctaSecondary = `${ctaBase} border border-slate-700 text-slate-200 hover:border-accent hover:text-accent`;
 ---
 
 <section
   id="top"
-  class="mx-auto flex max-w-5xl flex-col gap-6 px-6 py-24 md:py-32"
+  class="relative flex min-h-screen flex-col justify-center overflow-hidden bg-slate-950 px-6 py-24 text-slate-100 md:py-32"
 >
-  <p class="font-mono text-sm uppercase tracking-widest text-accent">
-    Data / ML Engineer
-  </p>
-  <h1 class="font-serif text-4xl font-bold text-slate-900 md:text-6xl">
-    Ionașcu Andrei
-  </h1>
-  <p class="max-w-2xl text-lg text-slate-600">
-    <slot name="positioning">
-      Data Engineer at Endava, building toward an MSc in Data Science at Uppsala
-      University.
-    </slot>
-  </p>
+  <div class="pointer-events-none absolute inset-0 opacity-60 [background-image:linear-gradient(to_right,rgba(148,163,184,0.09)_1px,transparent_1px),linear-gradient(to_bottom,rgba(148,163,184,0.09)_1px,transparent_1px)] [background-size:56px_56px] [mask-image:radial-gradient(ellipse_at_center,black_10%,transparent_75%)]"></div>
+  <div class="pointer-events-none absolute -right-40 -top-40 h-[32rem] w-[32rem] rounded-full bg-accent/20 blur-3xl"></div>
 
-  <div class="flex flex-wrap gap-4 pt-2">
-    <a href={contact.cvHref} download class={ctaPrimary}>
-      <Download size={16} />
-      Download CV
-    </a>
-    <a href={`mailto:${contact.email}`} class={ctaSecondary}>
-      <Mail size={16} />
-      Email
-    </a>
-    <a
-      href={contact.linkedin}
-      target="_blank"
-      rel="noopener noreferrer"
-      class={ctaSecondary}
-    >
-      <ExternalLink size={16} />
-      LinkedIn
-    </a>
-    <a
-      href={contact.github}
-      target="_blank"
-      rel="noopener noreferrer"
-      class={ctaSecondary}
-    >
-      <ExternalLink size={16} />
-      GitHub
-    </a>
+  <div class="relative mx-auto flex w-full max-w-5xl flex-col gap-6">
+    <p class="font-mono text-sm uppercase tracking-widest text-accent">
+      Data / ML Engineer
+    </p>
+    <h1 class="font-serif text-5xl font-bold text-white md:text-7xl">
+      Ionașcu Andrei
+    </h1>
+    <p class="max-w-2xl text-lg text-slate-300">
+      <slot name="positioning">
+        Data Engineer at Endava, building toward an MSc in Data Science at
+        Uppsala University.
+      </slot>
+    </p>
+
+    <div class="flex flex-wrap gap-4 pt-2">
+      <a href={contact.cvHref} download class={ctaPrimary}>
+        <Download size={16} />
+        Download CV
+      </a>
+      <a href={`mailto:${contact.email}`} class={ctaSecondary}>
+        <Mail size={16} />
+        Email
+      </a>
+      <a
+        href={contact.linkedin}
+        target="_blank"
+        rel="noopener noreferrer"
+        class={ctaSecondary}
+      >
+        <ExternalLink size={16} />
+        LinkedIn
+      </a>
+      <a
+        href={contact.github}
+        target="_blank"
+        rel="noopener noreferrer"
+        class={ctaSecondary}
+      >
+        <ExternalLink size={16} />
+        GitHub
+      </a>
+    </div>
   </div>
+
+  <a
+    href="#about"
+    aria-label="Scroll to About section"
+    class="absolute bottom-10 left-1/2 -translate-x-1/2 text-slate-500 transition-colors hover:text-accent"
+  >
+    <ChevronDown size={22} className="animate-bounce" />
+  </a>
 </section>
