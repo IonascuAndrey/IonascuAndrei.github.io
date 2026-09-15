@@ -1,0 +1,82 @@
+---
+interface NavItem {
+  href: string;
+  label: string;
+}
+
+const navItems: NavItem[] = [
+  { href: "#about", label: "About" },
+  { href: "#skills", label: "Skills" },
+  { href: "#experience", label: "Experience" },
+  { href: "#projects", label: "Projects" },
+  { href: "#certifications", label: "Certifications" },
+  { href: "#leadership", label: "Leadership" },
+  { href: "#contact", label: "Contact" },
+];
+---
+
+<header class="sticky top-0 z-50 border-b border-slate-200 bg-background/90 backdrop-blur">
+  <div class="mx-auto flex max-w-5xl items-center justify-between px-6 py-4">
+    <a href="#top" class="font-serif text-lg font-bold text-slate-900">
+      Ionașcu Andrei
+    </a>
+
+    <nav class="hidden gap-6 md:flex" aria-label="Primary">
+      {navItems.map((item) => (
+        <a
+          href={item.href}
+          class="text-sm font-medium text-slate-600 transition-colors hover:text-accent"
+        >
+          {item.label}
+        </a>
+      ))}
+    </nav>
+
+    <button
+      id="mobile-menu-toggle"
+      type="button"
+      class="flex flex-col gap-1.5 md:hidden"
+      aria-expanded="false"
+      aria-controls="mobile-menu"
+      aria-label="Toggle navigation menu"
+    >
+      <span class="block h-0.5 w-6 bg-slate-800"></span>
+      <span class="block h-0.5 w-6 bg-slate-800"></span>
+      <span class="block h-0.5 w-6 bg-slate-800"></span>
+    </button>
+  </div>
+
+  <nav
+    id="mobile-menu"
+    aria-label="Mobile"
+    hidden
+    class="flex flex-col gap-1 border-t border-slate-200 px-6 py-4 md:hidden"
+  >
+    {navItems.map((item) => (
+      <a
+        href={item.href}
+        class="rounded px-2 py-2 text-sm font-medium text-slate-600 hover:bg-slate-100 hover:text-accent"
+      >
+        {item.label}
+      </a>
+    ))}
+  </nav>
+</header>
+
+<script>
+  const toggle = document.getElementById("mobile-menu-toggle");
+  const menu = document.getElementById("mobile-menu");
+
+  toggle?.addEventListener("click", () => {
+    if (!menu) return;
+    menu.hidden = !menu.hidden;
+    toggle.setAttribute("aria-expanded", String(!menu.hidden));
+  });
+
+  menu?.querySelectorAll("a").forEach((link) => {
+    link.addEventListener("click", () => {
+      if (menu) menu.hidden = true;
+      toggle?.setAttribute("aria-expanded", "false");
+    });
+  });
+</script>

@@ -1,0 +1,24 @@
+[
+  {
+    "id": "python-and-ml",
+    "category": "Python & ML",
+    "items": [
+      "Python",
+      "pandas",
+      "NumPy",
+      "scikit-learn",
+      "PyTorch",
+      "Hugging Face"
+    ]
+  },
+  {
+    "id": "data-and-cloud-platforms",
+    "category": "Data & Cloud Platforms",
+    "items": ["SQL", "PL-SQL", "Azure", "Snowflake", "Databricks", "Git"]
+  },
+  {
+    "id": "other-languages",
+    "category": "Other Languages",
+    "items": ["JavaScript", "PHP", "C#/.NET", "C/C++", "Java"]
+  }
+]

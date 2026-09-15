@@ -1,0 +1,47 @@
+---
+import "../styles/global.css";
+import interLatin400 from "@fontsource/inter/files/inter-latin-400-normal.woff2?url";
+import playfairLatin700 from "@fontsource/playfair-display/files/playfair-display-latin-700-normal.woff2?url";
+
+interface Props {
+  title: string;
+  description: string;
+}
+
+const { title, description } = Astro.props;
+const siteUrl = "https://ionascuandrey.github.io";
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" href="/favicon.ico" />
+    <link
+      rel="preload"
+      as="font"
+      type="font/woff2"
+      href={interLatin400}
+      crossorigin
+    />
+    <link
+      rel="preload"
+      as="font"
+      type="font/woff2"
+      href={playfairLatin700}
+      crossorigin
+    />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={siteUrl} />
+    <meta name="twitter:card" content="summary" />
+    <meta name="generator" content={Astro.generator} />
+  </head>
+  <body class="bg-background font-sans text-slate-800 antialiased">
+    <slot />
+  </body>
+</html>

@@ -1,0 +1,41 @@
+[
+  {
+    "id": "multimodal-emotion-recognition",
+    "title": "Multimodal Emotion Recognition",
+    "summary": "Bachelor's thesis comparing six models across text, audio, and image modalities with three fusion strategies and built-in explainability.",
+    "problem": "Emotion recognition models trained on a single modality (text, audio, or image alone) miss cues that only surface when the signals are considered together.",
+    "approach": "Trained and compared six models spanning text, audio, and image inputs; evaluated three fusion strategies for combining them; applied Integrated Gradients and Grad-CAM to explain model predictions; built a feature-caching layer so repeated experiments reused precomputed embeddings instead of recomputing them.",
+    "stack": [
+      "Python",
+      "PyTorch",
+      "Hugging Face",
+      "Integrated Gradients",
+      "Grad-CAM"
+    ],
+    "outcome": "The feature-caching layer cut experiment turnaround from hours to minutes, making it practical to run far more fusion-strategy comparisons within the thesis timeline.",
+    "metrics": [
+      { "label": "Models compared", "value": "6" },
+      { "label": "Fusion strategies", "value": "3" },
+      { "label": "Experiment time", "value": "hrs -> min" }
+    ]
+  },
+  {
+    "id": "llm-persona-bias-experiment",
+    "title": "LLM Persona Bias Experiment",
+    "summary": "A factorial study of how assigning an LLM a persona shifts its outputs, written up as a CATS 2026 submission.",
+    "problem": "Assigning an LLM a persona (a demographic or professional identity) can bias its outputs, but how much the effect varies across models and prompt types is poorly quantified.",
+    "approach": "Designed a factorial experiment crossing four LLMs, seven personas, and three prompt types, running five repetitions per cell to control for sampling variance.",
+    "stack": [
+      "LLM experiment design",
+      "prompt engineering",
+      "statistical analysis"
+    ],
+    "outcome": "Findings were written up as a submission to CATS 2026, quantifying how persona framing shifts LLM outputs across models and prompt types.",
+    "metrics": [
+      { "label": "LLMs", "value": "4" },
+      { "label": "Personas", "value": "7" },
+      { "label": "Prompt types", "value": "3" },
+      { "label": "Runs per cell", "value": "5" }
+    ]
+  }
+]

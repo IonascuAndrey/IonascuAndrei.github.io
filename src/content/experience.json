@@ -1,0 +1,25 @@
+[
+  {
+    "id": "endava-data-engineer",
+    "role": "Data Engineer",
+    "company": "Endava",
+    "start": "2025-05",
+    "highlights": [
+      "Built Excel-to-standardized-database pipelines in Python and pandas using header-similarity bucketing, regex filtering, and header diffing.",
+      "Reduced manual analysis time by roughly 90% across the pipeline.",
+      "Worked on an insurance underwriting workbench on Azure and Snowflake.",
+      "Joined the team through the selective Dava.X Academy."
+    ]
+  },
+  {
+    "id": "weblir-web-developer",
+    "role": "Web Developer",
+    "company": "Weblir",
+    "start": "2021-07",
+    "end": "2022-10",
+    "highlights": [
+      "Built PrestaShop e-commerce modules in PHP, MySQL, and JavaScript.",
+      "Full-stack shipping experience that predates the current data-engineering focus."
+    ]
+  }
+]

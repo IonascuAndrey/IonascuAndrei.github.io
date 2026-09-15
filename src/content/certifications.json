@@ -1,0 +1,32 @@
+[
+  {
+    "id": "databricks-data-engineer-associate",
+    "name": "Databricks Certified Data Engineer Associate",
+    "issuer": "Databricks",
+    "date": "2025"
+  },
+  {
+    "id": "power-bi-data-analyst-associate",
+    "name": "Microsoft Certified: Power BI Data Analyst Associate",
+    "issuer": "Microsoft",
+    "date": "2025"
+  },
+  {
+    "id": "azure-data-fundamentals",
+    "name": "Microsoft Certified: Azure Data Fundamentals",
+    "issuer": "Microsoft",
+    "date": "2025"
+  },
+  {
+    "id": "azure-fundamentals",
+    "name": "Microsoft Certified: Azure Fundamentals",
+    "issuer": "Microsoft",
+    "date": "2025"
+  },
+  {
+    "id": "ai-fundamentals",
+    "name": "Microsoft Certified: AI Fundamentals",
+    "issuer": "Microsoft",
+    "date": "2025"
+  }
+]

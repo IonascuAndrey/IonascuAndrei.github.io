@@ -1,0 +1,34 @@
+---
+interface Props {
+  headshotSrc?: string;
+  headshotAlt?: string;
+}
+
+const { headshotSrc, headshotAlt = "Portrait of Ionașcu Andrei" } = Astro.props;
+---
+
+<section
+  id="about"
+  class="mx-auto grid max-w-5xl gap-10 px-6 py-20 md:grid-cols-[2fr_1fr] md:items-start"
+>
+  <div>
+    <h2 class="font-serif text-3xl font-bold text-slate-900">About</h2>
+    <div class="mt-4 space-y-4 text-slate-600">
+      <slot>
+        <p>
+          Data/ML Engineer with a foundation in Python, SQL, and cloud data
+          platforms, currently building pipelines at Endava while pursuing an
+          MSc in Data Science at Uppsala University.
+        </p>
+      </slot>
+    </div>
+  </div>
+
+  {headshotSrc && (
+    <img
+      src={headshotSrc}
+      alt={headshotAlt}
+      class="aspect-square w-full max-w-xs rounded-lg object-cover md:justify-self-end"
+    />
+  )}
+</section>

@@ -1,0 +1,19 @@
+---
+import { getCollection } from "astro:content";
+
+const certifications = await getCollection("certifications");
+---
+
+<section id="certifications" class="mx-auto max-w-5xl px-6 py-20">
+  <h2 class="font-serif text-3xl font-bold text-slate-900">Certifications</h2>
+  <ul class="mt-8 flex flex-wrap gap-3">
+    {certifications.map(({ data }) => (
+      <li class="rounded-md border border-slate-200 px-4 py-3">
+        <p class="text-sm font-medium text-slate-900">{data.name}</p>
+        <p class="font-mono text-xs text-slate-500">
+          {data.issuer} · {data.date}
+        </p>
+      </li>
+    ))}
+  </ul>
+</section>

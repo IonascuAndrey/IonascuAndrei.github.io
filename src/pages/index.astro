@@ -1,16 +1,46 @@
 ---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Header from "../components/Header.astro";
+import Hero from "../components/Hero.astro";
+import About from "../components/About.astro";
+import Skills from "../components/Skills.astro";
+import Experience from "../components/Experience.astro";
+import Projects from "../components/Projects.astro";
+import Certifications from "../components/Certifications.astro";
+import Leadership from "../components/Leadership.astro";
+import Contact from "../components/Contact.astro";
+import Footer from "../components/Footer.astro";
+import FadeIn from "../components/FadeIn";
 ---
 
-<html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="icon" href="/favicon.ico" />
-    <meta name="viewport" content="width=device-width" />
-    <meta name="generator" content={Astro.generator} />
-    <title>Astro</title>
-  </head>
-  <body>
-    <h1>Astro</h1>
-  </body>
-</html>
+<BaseLayout
+  title="Ionașcu Andrei — Data & ML Engineer"
+  description="Portfolio of Ionașcu Andrei, a Data/ML Engineer building pipelines at Endava and pursuing an MSc in Data Science at Uppsala University."
+>
+  <Header />
+  <main>
+    <Hero />
+    <FadeIn client:visible>
+      <About />
+    </FadeIn>
+    <FadeIn client:visible>
+      <Skills />
+    </FadeIn>
+    <FadeIn client:visible>
+      <Experience />
+    </FadeIn>
+    <FadeIn client:visible>
+      <Projects />
+    </FadeIn>
+    <FadeIn client:visible>
+      <Certifications />
+    </FadeIn>
+    <FadeIn client:visible>
+      <Leadership />
+    </FadeIn>
+    <FadeIn client:visible>
+      <Contact />
+    </FadeIn>
+  </main>
+  <Footer />
+</BaseLayout>

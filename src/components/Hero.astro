@@ -1,0 +1,62 @@
+---
+import { Mail, ExternalLink, Download } from "lucide-react";
+
+const contact = {
+  email: "ionascuandrei320@gmail.com",
+  linkedin: "https://linkedin.com/in/andrei-ionascu",
+  github: "https://github.com/IonascuAndrey",
+  cvHref: "/CV_Ionascu_Andrei.pdf",
+};
+
+const ctaBase =
+  "inline-flex items-center gap-2 rounded-md px-5 py-2.5 text-sm font-medium transition-colors";
+const ctaPrimary = `${ctaBase} bg-slate-900 text-white hover:bg-accent`;
+const ctaSecondary = `${ctaBase} border border-slate-300 text-slate-700 hover:border-accent hover:text-accent`;
+---
+
+<section
+  id="top"
+  class="mx-auto flex max-w-5xl flex-col gap-6 px-6 py-24 md:py-32"
+>
+  <p class="font-mono text-sm uppercase tracking-widest text-accent">
+    Data / ML Engineer
+  </p>
+  <h1 class="font-serif text-4xl font-bold text-slate-900 md:text-6xl">
+    Ionașcu Andrei
+  </h1>
+  <p class="max-w-2xl text-lg text-slate-600">
+    <slot name="positioning">
+      Data Engineer at Endava, building toward an MSc in Data Science at Uppsala
+      University.
+    </slot>
+  </p>
+
+  <div class="flex flex-wrap gap-4 pt-2">
+    <a href={contact.cvHref} download class={ctaPrimary}>
+      <Download size={16} />
+      Download CV
+    </a>
+    <a href={`mailto:${contact.email}`} class={ctaSecondary}>
+      <Mail size={16} />
+      Email
+    </a>
+    <a
+      href={contact.linkedin}
+      target="_blank"
+      rel="noopener noreferrer"
+      class={ctaSecondary}
+    >
+      <ExternalLink size={16} />
+      LinkedIn
+    </a>
+    <a
+      href={contact.github}
+      target="_blank"
+      rel="noopener noreferrer"
+      class={ctaSecondary}
+    >
+      <ExternalLink size={16} />
+      GitHub
+    </a>
+  </div>
+</section>
