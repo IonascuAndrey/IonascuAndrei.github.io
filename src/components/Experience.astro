@@ -1,34 +1,147 @@
 ---
 import { getCollection } from "astro:content";
-import { CircleDot } from "lucide-react";
 
-const experience = (await getCollection("experience")).sort((a, b) =>
-  b.data.start.localeCompare(a.data.start),
-);
+const MONTHS = [
+  "Jan",
+  "Feb",
+  "Mar",
+  "Apr",
+  "May",
+  "Jun",
+  "Jul",
+  "Aug",
+  "Sep",
+  "Oct",
+  "Nov",
+  "Dec",
+];
+
+function formatDate(ym: string) {
+  const [year, month] = ym.split("-").map(Number);
+  return `${MONTHS[month - 1]} ${year}`;
+}
 
 function formatRange(start: string, end?: string) {
-  return `${start} – ${end ?? "Present"}`;
+  return `${formatDate(start)} - ${end ? formatDate(end) : "Present"}`;
 }
+
+const experience = (await getCollection("experience")).sort((a, b) =>
+  (b.data.end ?? "9999-99").localeCompare(a.data.end ?? "9999-99"),
+);
 ---
 
 <h2 class="font-serif text-3xl font-bold text-slate-900">Experience</h2>
-<div class="mt-8 space-y-10">
-  {experience.map(({ data }) => (
-    <div class="grid gap-2 border-t border-slate-200 pt-6 md:grid-cols-[10rem_1fr] md:gap-8">
-      <p class="flex items-center gap-1.5 font-mono text-xs uppercase tracking-wide text-slate-500">
-        <CircleDot size={12} className="text-accent" />
-        {formatRange(data.start, data.end)}
-      </p>
-      <div>
-        <h3 class="font-serif text-xl font-semibold text-slate-900">
-          {data.role} · {data.company}
-        </h3>
-        <ul class="mt-3 list-disc space-y-1 pl-5 text-slate-600">
-          {data.highlights.map((point) => (
-            <li>{point}</li>
-          ))}
-        </ul>
-      </div>
-    </div>
-  ))}
+
+<div
+  id="experience-timeline"
+  class="relative mt-12 border-l border-slate-200 pl-10"
+>
+  <div
+    id="experience-timeline-fill"
+    class="absolute -left-px top-0 w-px bg-accent"
+    style="height: 0%"
+  ></div>
+
+  <div class="space-y-16">
+    {experience.map(({ data }) => {
+      const ongoing = !data.end;
+      return (
+        <div class="timeline-item relative -translate-y-3 opacity-0 transition-all duration-700 ease-out">
+          <span
+            class={`timeline-dot absolute -left-[2.6875rem] top-1 flex h-3.5 w-3.5 items-center justify-center rounded-full border-2 border-slate-300 bg-background transition-colors duration-500`}
+          >
+            {ongoing && (
+              <span class="absolute h-3.5 w-3.5 animate-ping rounded-full bg-accent/40" />
+            )}
+          </span>
+
+          <p class="flex flex-wrap items-center gap-2 font-mono text-xs uppercase tracking-wide text-slate-500">
+            {formatRange(data.start, data.end)}
+            {ongoing && (
+              <span class="rounded-full bg-accent/10 px-2 py-0.5 text-[10px] font-semibold normal-case tracking-normal text-accent">
+                Present
+              </span>
+            )}
+          </p>
+          <h3 class="mt-1 font-serif text-xl font-semibold text-slate-900">
+            {data.role} · {data.company}
+          </h3>
+          <ul class="mt-3 list-disc space-y-1 pl-5 text-slate-600">
+            {data.highlights.map((point) => (
+              <li>{point}</li>
+            ))}
+          </ul>
+        </div>
+      );
+    })}
+  </div>
 </div>
+
+<style>
+  .timeline-item.revealed {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .timeline-item.revealed .timeline-dot {
+    border-color: var(--color-accent);
+    background-color: var(--color-accent);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .timeline-item {
+      opacity: 1;
+      transform: none;
+      transition: none;
+    }
+  }
+</style>
+
+<script>
+  const wrap = document.getElementById("experience-timeline");
+  const fill = document.getElementById("experience-timeline-fill");
+  const items = document.querySelectorAll<HTMLElement>(".timeline-item");
+
+  const reduceMotion = window.matchMedia(
+    "(prefers-reduced-motion: reduce)",
+  ).matches;
+
+  if (reduceMotion) {
+    items.forEach((item) => item.classList.add("revealed"));
+  } else if (items.length) {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("revealed");
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.2, rootMargin: "0px 0px -10% 0px" },
+    );
+    items.forEach((item) => observer.observe(item));
+  }
+
+  function updateFill() {
+    if (!wrap || !fill) return;
+    const rect = wrap.getBoundingClientRect();
+    const viewportH = window.innerHeight;
+    const progress =
+      (viewportH * 0.75 - rect.top) / (rect.height + viewportH * 0.25);
+    fill.style.height = `${Math.min(100, Math.max(0, progress * 100))}%`;
+  }
+
+  let ticking = false;
+  function onScroll() {
+    if (ticking) return;
+    ticking = true;
+    requestAnimationFrame(() => {
+      updateFill();
+      ticking = false;
+    });
+  }
+
+  updateFill();
+  window.addEventListener("scroll", onScroll, { passive: true });
+  window.addEventListener("resize", onScroll);
+</script>
