@@ -37,5 +37,30 @@
       { "label": "Prompt types", "value": "3" },
       { "label": "Runs per cell", "value": "5" }
     ]
+  },
+  {
+    "id": "taskflow",
+    "title": "TaskFlow",
+    "summary": "A team productivity and task-management web app built with ASP.NET Core MVC.",
+    "stack": [
+      "C#",
+      "ASP.NET Core",
+      "Entity Framework Core",
+      "ASP.NET Identity"
+    ],
+    "links": { "repo": "https://github.com/IonascuAndrey/TaskFlow" }
+  },
+  {
+    "id": "library-database",
+    "title": "Library Management Database",
+    "summary": "A relational database for a library system, built in Oracle PL/SQL: books, authors, publishers, loans, and reservations, with stored procedures for activity reports and triggers that archive loan history.",
+    "stack": ["Oracle PL/SQL", "SQL"],
+    "links": { "repo": "https://github.com/IonascuAndrey/Library-Database" }
+  },
+  {
+    "id": "bacpebune",
+    "title": "BacPeBune",
+    "summary": "A two-person Best-Fit memory allocator using mmap for direct memory management, mutexes for thread safety, and memory protection to guard allocated regions, minimizing internal and external fragmentation for multithreaded workloads.",
+    "stack": ["C", "mmap", "mutexes", "memory protection"]
   }
 ]

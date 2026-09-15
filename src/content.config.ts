@@ -6,10 +6,10 @@ const projects = defineCollection({
   schema: z.object({
     title: z.string(),
     summary: z.string(),
-    problem: z.string(),
-    approach: z.string(),
+    problem: z.string().optional(),
+    approach: z.string().optional(),
     stack: z.array(z.string()),
-    outcome: z.string(),
+    outcome: z.string().optional(),
     metrics: z
       .array(
         z.object({

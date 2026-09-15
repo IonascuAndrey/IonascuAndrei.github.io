@@ -1,12 +1,15 @@
 ---
 import { getCollection } from "astro:content";
+import { ExternalLink } from "lucide-react";
 
-const projects = await getCollection("projects");
+const allProjects = await getCollection("projects");
+const featured = allProjects.filter((p) => p.data.problem);
+const other = allProjects.filter((p) => !p.data.problem);
 ---
 
 <h2 class="font-serif text-3xl font-bold text-slate-900">Projects</h2>
 <div class="mt-8 grid gap-8 md:grid-cols-2">
-  {projects.map(({ data }) => (
+  {featured.map(({ data }) => (
     <article class="flex flex-col rounded-lg border border-slate-200 p-6">
       <h3 class="font-serif text-xl font-semibold text-slate-900">
         {data.title}
@@ -64,3 +67,39 @@ const projects = await getCollection("projects");
     </article>
   ))}
 </div>
+
+{other.length > 0 && (
+  <div class="mt-16 border-t border-slate-200 pt-10">
+    <h3 class="font-serif text-lg font-semibold text-slate-900">Also built</h3>
+    <div class="mt-6 grid gap-x-8 gap-y-8 sm:grid-cols-2 lg:grid-cols-3">
+      {other.map(({ data }) => (
+        <div>
+          <div class="flex items-start justify-between gap-3">
+            <h4 class="font-serif text-base font-semibold text-slate-900">
+              {data.title}
+            </h4>
+            {data.links?.repo && (
+              <a
+                href={data.links.repo}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={`${data.title} repository`}
+                class="mt-0.5 shrink-0 text-slate-400 transition-colors hover:text-accent"
+              >
+                <ExternalLink size={15} />
+              </a>
+            )}
+          </div>
+          <p class="mt-1.5 text-sm text-slate-600">{data.summary}</p>
+          <ul class="mt-3 flex flex-wrap gap-1.5">
+            {data.stack.map((tech) => (
+              <li class="rounded-full bg-slate-100 px-2.5 py-0.5 font-mono text-[11px] text-slate-700">
+                {tech}
+              </li>
+            ))}
+          </ul>
+        </div>
+      ))}
+    </div>
+  </div>
+)}
