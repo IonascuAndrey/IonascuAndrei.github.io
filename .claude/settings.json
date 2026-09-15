@@ -1,0 +1,32 @@
+{
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Write|Edit",
+        "hooks": [
+          {
+            "type": "command",
+            "shell": "powershell",
+            "command": "$json = [Console]::In.ReadToEnd() | ConvertFrom-Json; $f = $json.tool_input.file_path; if ($f -match '\\.(astro|ts|tsx)$') { if (Test-Path package.json) { npm run lint -- --fix; npm run format } }",
+            "timeout": 60,
+            "statusMessage": "Linting and formatting..."
+          }
+        ]
+      }
+    ],
+    "PreToolUse": [
+      {
+        "matcher": "Write|Edit",
+        "hooks": [
+          {
+            "type": "command",
+            "shell": "powershell",
+            "command": "$json = [Console]::In.ReadToEnd() | ConvertFrom-Json; $content = \"$($json.tool_input.content)`n$($json.tool_input.new_string)\"; if ($content -match '(?i)lorem\\s+ipsum') { Write-Output (@{hookSpecificOutput=@{hookEventName='PreToolUse';permissionDecision='deny';permissionDecisionReason='Blocked: content contains lorem ipsum placeholder text. Project rule: no placeholder copy, use real resume/project data.'}} | ConvertTo-Json -Compress) }",
+            "timeout": 15,
+            "statusMessage": "Checking for placeholder text..."
+          }
+        ]
+      }
+    ]
+  }
+}
