@@ -52,14 +52,14 @@ This is real content, not placeholder — it grounds the schemas in Phase C belo
 - [x] 6. `.gitignore` — already present from the scaffold and already covers `node_modules/`, `dist/`, `.astro/`, `.env`.
 - [x] 7. `package.json` scripts — `dev`/`build`/`preview`/`astro` from the scaffold, plus `lint` (`eslint .`) and `format` (`prettier --write .`) added. Pulled a slice of Phase D forward to make this real: installed `eslint`, `eslint-plugin-astro`, `typescript-eslint`, `prettier`, `prettier-plugin-astro`; added `eslint.config.mjs` (flat config) and `.prettierrc.json`/`.prettierignore`. Both scripts run clean. The `PostToolUse` hook now does real work instead of no-op'ing.
 
-## Phase B — Design System Setup (tokens only, no page UI)
+## Phase B — Design System Setup (tokens only, no page UI) — ✅ done (2026-09-15)
 
 **Correction from Phase A**: `astro add tailwind` installed **Tailwind v4** (via `@tailwindcss/vite`), which has no `tailwind.config.mjs` file at all — `src/styles/global.css` currently just has `@import "tailwindcss";`. Theme tokens are declared in CSS via an `@theme { ... }` block in that same file instead of a JS config's `theme.extend`. Encode `CLAUDE.md`'s "Scientific Elegance" spec there:
 
-- [ ] **Colors**: `--color-background: #FAFAFA`, a `slate` grey scale for text (Tailwind v4 ships the `slate` palette by default, no need to redeclare), `--color-accent: #006D77` (deep teal) for links/hover/data points only.
-- [ ] **Fonts**: `--font-serif` → Merriweather or Playfair Display (headers), `--font-sans` → Inter (body), `--font-mono` → JetBrains Mono (numbers/code/stats). Self-host via `@fontsource/*` packages (avoids external network requests for perf — matters for "instant loading" goal) rather than a Google Fonts `<link>`.
-- [ ] **Spacing/whitespace**: extend the spacing scale slightly if Tailwind defaults feel too tight for a "textbook/Tufte" high-whitespace layout; otherwise rely on generous `py-*`/`gap-*` at the component level.
-- [ ] Update `src/styles/global.css`'s `@theme` block with the above; no separate config file needed.
+- [x] **Colors**: `--color-background: #FAFAFA`, a `slate` grey scale for text (Tailwind v4 ships the `slate` palette by default, no need to redeclare), `--color-accent: #006D77` (deep teal) for links/hover/data points only.
+- [x] **Fonts**: `--font-serif` → **Playfair Display** (headers; picked over Merriweather — the site's headers are short/editorial rather than long-form reading text, and Playfair's higher contrast reads as more "crisp" per `CLAUDE.md`'s wording), `--font-sans` → Inter (body), `--font-mono` → JetBrains Mono (numbers/code/stats). Self-hosted via `@fontsource/*` packages, imported in `global.css` as `latin` + `latin-ext` subsets only per weight (skipping cyrillic/greek/vietnamese) — **latin-ext is required**, not optional: it covers the Romanian diacritic in "Ionașcu". Weights: Playfair Display 400/700, Inter 400/500/600, JetBrains Mono 400/500.
+- [ ] **Spacing/whitespace**: deferred — rely on generous `py-*`/`gap-*` at the component level in Phase C; revisit only if defaults feel tight once real sections exist.
+- [x] Update `src/styles/global.css`'s `@theme` block with the above; no separate config file needed. Verified by temporarily importing `global.css` into `index.astro`, running `npm run build`, confirming all 14 woff2 files and the `@theme` CSS vars landed in `dist/_astro/`, then reverting the temporary import (that wiring is Phase C's `BaseLayout.astro` job).
 
 ## Phase C — Layout Architecture (the core deliverable)
 
