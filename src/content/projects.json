@@ -61,6 +61,7 @@
     "id": "bacpebune",
     "title": "BacPeBune",
     "summary": "A two-person Best-Fit memory allocator using mmap for direct memory management, mutexes for thread safety, and memory protection to guard allocated regions, minimizing internal and external fragmentation for multithreaded workloads.",
-    "stack": ["C", "mmap", "mutexes", "memory protection"]
+    "stack": ["C", "mmap", "mutexes", "memory protection"],
+    "links": { "repo": "https://github.com/IonascuAndrey/BacPeBune" }
   }
 ]
