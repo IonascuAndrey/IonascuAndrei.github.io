@@ -2,17 +2,15 @@
 
 /* Self-hosted fonts (@fontsource) — latin + latin-ext subsets only (latin-ext covers
    Romanian diacritics like the "ș" in "Ionașcu"); cyrillic/greek/vietnamese subsets skipped. */
-@import "@fontsource/playfair-display/latin-400.css";
-@import "@fontsource/playfair-display/latin-ext-400.css";
-@import "@fontsource/playfair-display/latin-700.css";
-@import "@fontsource/playfair-display/latin-ext-700.css";
+@import "@fontsource/special-elite/latin-400.css";
+@import "@fontsource/special-elite/latin-ext-400.css";
 
-@import "@fontsource/inter/latin-400.css";
-@import "@fontsource/inter/latin-ext-400.css";
-@import "@fontsource/inter/latin-500.css";
-@import "@fontsource/inter/latin-ext-500.css";
-@import "@fontsource/inter/latin-600.css";
-@import "@fontsource/inter/latin-ext-600.css";
+@import "@fontsource/courier-prime/latin-400.css";
+@import "@fontsource/courier-prime/latin-ext-400.css";
+@import "@fontsource/courier-prime/latin-400-italic.css";
+@import "@fontsource/courier-prime/latin-ext-400-italic.css";
+@import "@fontsource/courier-prime/latin-700.css";
+@import "@fontsource/courier-prime/latin-ext-700.css";
 
 @import "@fontsource/jetbrains-mono/latin-400.css";
 @import "@fontsource/jetbrains-mono/latin-ext-400.css";
@@ -20,13 +18,17 @@
 @import "@fontsource/jetbrains-mono/latin-ext-500.css";
 
 @theme {
-  /* Scientific Elegance — Colors */
-  --color-background: #fafafa;
+  /* Old Manuscript — Colors */
+  --color-background: #ede1c0;
   --color-accent: #006d77;
 
-  /* Scientific Elegance — Typography */
-  --font-serif: "Playfair Display", ui-serif, Georgia, "Times New Roman", serif;
-  --font-sans: "Inter", ui-sans-serif, system-ui, -apple-system, sans-serif;
+  /* Old Manuscript — Typography: a distressed typewriter face for headers
+     (character over readability — used at size, briefly), a cleaner typewriter
+     face for body copy (readability over long paragraphs), and JetBrains Mono
+     reserved for computed data callouts — a deliberate "typed by hand" vs.
+     "printed by machine" contrast. */
+  --font-serif: "Special Elite", "Courier New", ui-monospace, monospace;
+  --font-sans: "Courier Prime", "Courier New", ui-monospace, monospace;
   --font-mono:
     "JetBrains Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
 }

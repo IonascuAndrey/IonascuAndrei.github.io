@@ -18,12 +18,16 @@ const ctaSecondary = `${ctaBase} border border-slate-300 text-slate-700 hover:bo
   id="top"
   class="mx-auto flex max-w-5xl flex-col gap-6 px-6 py-24 md:py-32"
 >
-  <p class="font-mono text-sm uppercase tracking-widest text-accent">
-    Data / ML Engineer
-  </p>
-  <h1 class="font-serif text-4xl font-bold text-slate-900 md:text-6xl">
-    Ionașcu Andrei
-  </h1>
+  <p
+    id="hero-label"
+    class="font-mono text-sm uppercase tracking-widest text-accent"
+    data-typewriter="Data / ML Engineer"
+  ></p>
+  <h1
+    id="hero-name"
+    class="font-serif text-4xl font-bold text-slate-900 md:text-6xl"
+    data-typewriter="Ionașcu Andrei"
+  ></h1>
   <p class="max-w-2xl text-lg text-slate-600">
     <slot name="positioning">
       Data Engineer at Endava, building toward an MSc in Data Science at Uppsala
@@ -60,3 +64,52 @@ const ctaSecondary = `${ctaBase} border border-slate-300 text-slate-700 hover:bo
     </a>
   </div>
 </section>
+
+<script>
+  function typeElement(
+    el: HTMLElement,
+    text: string,
+    speed: number,
+  ): Promise<void> {
+    el.textContent = "";
+    const cursor = document.createElement("span");
+    cursor.textContent = "▌";
+    cursor.className = "typewriter-cursor animate-pulse text-accent";
+    el.appendChild(cursor);
+
+    return new Promise((resolve) => {
+      let i = 0;
+      const tick = () => {
+        if (i < text.length) {
+          cursor.before(text[i]);
+          i += 1;
+          setTimeout(tick, speed);
+        } else {
+          resolve();
+        }
+      };
+      tick();
+    });
+  }
+
+  async function runTypewriter() {
+    const label = document.getElementById("hero-label");
+    const name = document.getElementById("hero-name");
+    if (!label || !name) return;
+
+    const labelText = label.dataset.typewriter ?? "";
+    const nameText = name.dataset.typewriter ?? "";
+
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      label.textContent = labelText;
+      name.textContent = nameText;
+      return;
+    }
+
+    await typeElement(label, labelText, 40);
+    label.querySelector(".typewriter-cursor")?.remove();
+    await typeElement(name, nameText, 65);
+  }
+
+  runTypewriter();
+</script>

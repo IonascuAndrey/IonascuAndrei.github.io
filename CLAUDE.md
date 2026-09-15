@@ -2,18 +2,21 @@
 
 - Framework: Astro (for instant loading)
 - Styling: Tailwind CSS
-- Animations: Framer Motion
-- Icons: Lucide React
+- Animations: Framer Motion (scroll-reveal `FadeIn` island); simple interactivity (mobile menu toggle, the Hero typewriter effect) is plain vanilla JS in a `<script>` tag, not a React island — keeps hydration cost near zero for things that don't need it.
+- Icons: Lucide React, rendered without a `client:*` directive wherever purely decorative (static SVG output, zero hydration cost).
 
-# Design Guidelines (Scientific Elegance)
+# Design Guidelines (Old Manuscript)
 
-- Theme: Light mode default. Background is a warm off-white (e.g., #FAFAFA), not pure blinding white.
-- Colors: Slate greys for text. Use one muted, sophisticated accent color (like Terracotta #E2725B or deep Teal #006D77) strictly for data points, links, and hover states.
-- Typography:
-  - Headers: A crisp Serif font (like Merriweather or Playfair Display) to mimic academic papers.
-  - Body: A highly legible Sans-Serif (like Inter or Roboto) for clean reading.
-  - Code/Numbers: Monospace (like JetBrains Mono) for numerical stats and code snippets.
-- Layout: Grid-based, high whitespace, similar to a beautifully typeset textbook or a Tufte data visualization.
+Supersedes an earlier "Scientific Elegance" pass (Playfair Display/Inter, cool off-white background) — replaced per the user's explicit request for a design with more personality. A scroll-driven 3D book/page-turn concept was prototyped and explicitly rejected as bad UX before landing on this direction.
+
+- Theme: Light mode only. Background is an aged, warm parchment/sepia tone (`--color-background: #EDE1C0`) evoking a yellowed old book page — not a cool white.
+- Colors: Slate greys for text (unchanged). One muted accent color, deep Teal `#006D77`, strictly for data points, links, and hover states (unchanged).
+- Typography — a deliberate "typed by hand" vs. "printed by machine" contrast:
+  - Headers: Special Elite, a distressed vintage typewriter face, used at size for character.
+  - Body: Courier Prime, a cleaner typewriter face, legible for longer-form reading.
+  - Code/numbers/data-stat callouts: JetBrains Mono — the one "computed" element set against the two typewriter faces.
+- Motion: the Hero name and role label type themselves out character-by-character on load with a blinking accent-colored cursor (plain vanilla JS, respects `prefers-reduced-motion`).
+- Layout: unchanged — grid-based, high whitespace, single-page scrolling portfolio with anchor sections.
 
 # Development Rules
 

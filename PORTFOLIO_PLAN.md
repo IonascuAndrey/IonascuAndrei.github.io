@@ -57,7 +57,7 @@ This is real content, not placeholder — it grounds the schemas in Phase C belo
 **Correction from Phase A**: `astro add tailwind` installed **Tailwind v4** (via `@tailwindcss/vite`), which has no `tailwind.config.mjs` file at all — `src/styles/global.css` currently just has `@import "tailwindcss";`. Theme tokens are declared in CSS via an `@theme { ... }` block in that same file instead of a JS config's `theme.extend`. Encode `CLAUDE.md`'s "Scientific Elegance" spec there:
 
 - [x] **Colors**: `--color-background: #FAFAFA`, a `slate` grey scale for text (Tailwind v4 ships the `slate` palette by default, no need to redeclare), `--color-accent: #006D77` (deep teal) for links/hover/data points only.
-- [x] **Fonts**: `--font-serif` → **Playfair Display** (headers; picked over Merriweather — the site's headers are short/editorial rather than long-form reading text, and Playfair's higher contrast reads as more "crisp" per `CLAUDE.md`'s wording), `--font-sans` → Inter (body), `--font-mono` → JetBrains Mono (numbers/code/stats). Self-hosted via `@fontsource/*` packages, imported in `global.css` as `latin` + `latin-ext` subsets only per weight (skipping cyrillic/greek/vietnamese) — **latin-ext is required**, not optional: it covers the Romanian diacritic in "Ionașcu". Weights: Playfair Display 400/700, Inter 400/500/600, JetBrains Mono 400/500.
+- [x] **Fonts** (superseded 2026-09-15, see "Old Manuscript redesign" below): originally `--font-serif` → Playfair Display, `--font-sans` → Inter, `--font-mono` → JetBrains Mono. Self-hosted via `@fontsource/*` packages, imported in `global.css` as `latin` + `latin-ext` subsets only per weight (skipping cyrillic/greek/vietnamese) — **latin-ext is required**, not optional: it covers the Romanian diacritic in "Ionașcu". This subset-import approach carried over to the replacement fonts below unchanged.
 - [ ] **Spacing/whitespace**: deferred — rely on generous `py-*`/`gap-*` at the component level in Phase C; revisit only if defaults feel tight once real sections exist.
 - [x] Update `src/styles/global.css`'s `@theme` block with the above; no separate config file needed. Verified by temporarily importing `global.css` into `index.astro`, running `npm run build`, confirming all 14 woff2 files and the `@theme` CSS vars landed in `dist/_astro/`, then reverting the temporary import (that wiring is Phase C's `BaseLayout.astro` job).
 
@@ -91,6 +91,20 @@ This is structural scaffolding — components exist with real markup/semantics a
 - [x] `.github/workflows/deploy.yml` — pulled forward from its usual place (after Phase C/D) so there's a live, verifiable checkpoint right after Phase A instead of only at the end. On push to `master` (or manual dispatch): `npm ci`, `npm run lint`, `npm run check`, `npm run build`, then deploy `dist/` to GitHub Pages via `actions/deploy-pages`.
 - [x] **One-time manual step required**: GitHub Pages must be switched to "Source: GitHub Actions" in the repo's Settings → Pages — done by the user (confirmed 2026-09-15). First real deploy (Phase B + C commits, pushed 2026-09-15) succeeded end-to-end; site is live at `https://ionascuandrey.github.io`.
 - [ ] Separate lightweight CI check on PRs (if branches are used) running lint + build only, no deploy — gives a pass/fail signal before merging even for a solo repo. Still optional — no feature-branch workflow in use yet (all work has gone straight to `master`, per current solo-repo pace).
+
+---
+
+## Design Revision — "Old Manuscript" (2026-09-15)
+
+After Phases B–E shipped, the user's live feedback was that the "Scientific Elegance" result felt like generic AI-portfolio template output with no personality — accurate, but not distinctive. This section documents what was tried and what stuck.
+
+- **Rejected**: a scroll-driven 3D book/page-turn concept (each section as a literal "page" you flip through by scrolling, prototyped with a hard rigid-plane cover flip and a soft two-segment bending paper flip using GSAP ScrollTrigger). The mechanic itself worked smoothly, but the user called it out as bad UX for a portfolio (scroll-hijacking) before it went further — abandoned, prototype deleted, `gsap` dependency removed.
+- **Kept and shipped**: an "Old Manuscript" reskin of the existing section layout (no structural changes) —
+  - `--color-background` → `#EDE1C0` (aged parchment/sepia, replacing the cool `#FAFAFA`).
+  - Fonts replaced: `--font-serif` → **Special Elite** (distressed vintage typewriter face, headers), `--font-sans` → **Courier Prime** (cleaner typewriter face, body copy). `--font-mono` (JetBrains Mono) kept unchanged for data-stat callouts specifically, as a deliberate "typed by hand" vs. "computed by machine" contrast rather than a uniform monospace-everywhere look. `@fontsource/playfair-display` and `@fontsource/inter` uninstalled.
+  - A vanilla-JS (no new dependency) typewriter effect on the Hero: the role label and name type themselves out character-by-character on load with a blinking accent-colored cursor, respecting `prefers-reduced-motion`.
+- `CLAUDE.md`'s Design Guidelines section was rewritten in place to document this as the current design system (renamed from "Scientific Elegance" to "Old Manuscript").
+- Verified: lint, `astro check`, and build all pass; manually checked every section (Hero, About, Skills, Experience, Projects, Certifications, Leadership, Contact, footer) in a real browser for legibility and layout — the wider monospace letterforms didn't break any card/grid layout.
 
 ---
 
