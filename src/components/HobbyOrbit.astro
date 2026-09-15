@@ -1,0 +1,129 @@
+---
+import {
+  BookOpen,
+  Plane,
+  Mountain,
+  Footprints,
+  Lightbulb,
+  Landmark,
+  type LucideIcon,
+} from "lucide-react";
+
+interface Hobby {
+  label: string;
+  icon: LucideIcon;
+  angle: number;
+}
+
+const innerRing: Hobby[] = [
+  { label: "Literature", icon: BookOpen, angle: 0 },
+  { label: "Philosophy", icon: Lightbulb, angle: 120 },
+  { label: "Culture", icon: Landmark, angle: 240 },
+];
+
+const outerRing: Hobby[] = [
+  { label: "Traveling", icon: Plane, angle: 60 },
+  { label: "Hiking", icon: Mountain, angle: 180 },
+  { label: "Running", icon: Footprints, angle: 300 },
+];
+
+function position(radiusPct: number, angleDeg: number) {
+  const rad = (angleDeg - 90) * (Math.PI / 180);
+  const x = 50 + radiusPct * Math.cos(rad);
+  const y = 50 + radiusPct * Math.sin(rad);
+  return `left: ${x}%; top: ${y}%;`;
+}
+---
+
+<div class="orbit-wrap relative mx-auto aspect-square w-full max-w-sm">
+  <div class="absolute left-1/2 top-1/2 aspect-square w-[64%] -translate-x-1/2 -translate-y-1/2 rounded-full border border-dashed border-slate-300"></div>
+  <div class="absolute left-1/2 top-1/2 aspect-square w-[96%] -translate-x-1/2 -translate-y-1/2 rounded-full border border-dashed border-slate-200"></div>
+
+  <div class="orbit-center absolute left-1/2 top-1/2 h-3 w-3 -translate-x-1/2 -translate-y-1/2 rounded-full bg-accent"></div>
+
+  <div class="orbit-ring orbit-ring-inner absolute inset-0">
+    {innerRing.map((hobby) => (
+      <div class="orbit-item absolute" style={position(32, hobby.angle)}>
+        <div class="orbit-counter-spin group relative -translate-x-1/2 -translate-y-1/2">
+          <span class="flex h-11 w-11 items-center justify-center rounded-full border border-slate-200 bg-background text-slate-600 shadow-sm transition-colors group-hover:border-accent group-hover:text-accent">
+            <hobby.icon size={18} />
+          </span>
+          <span class="pointer-events-none absolute -top-9 left-1/2 -translate-x-1/2 scale-95 whitespace-nowrap rounded-md bg-slate-900 px-2.5 py-1 font-sans text-xs font-medium text-white opacity-0 shadow-md transition-all duration-150 group-hover:scale-100 group-hover:opacity-100">
+            {hobby.label}
+          </span>
+        </div>
+      </div>
+    ))}
+  </div>
+
+  <div class="orbit-ring orbit-ring-outer absolute inset-0">
+    {outerRing.map((hobby) => (
+      <div class="orbit-item absolute" style={position(48, hobby.angle)}>
+        <div class="orbit-counter-spin group relative -translate-x-1/2 -translate-y-1/2">
+          <span class="flex h-11 w-11 items-center justify-center rounded-full border border-slate-200 bg-background text-slate-600 shadow-sm transition-colors group-hover:border-accent group-hover:text-accent">
+            <hobby.icon size={18} />
+          </span>
+          <span class="pointer-events-none absolute -top-9 left-1/2 -translate-x-1/2 scale-95 whitespace-nowrap rounded-md bg-slate-900 px-2.5 py-1 font-sans text-xs font-medium text-white opacity-0 shadow-md transition-all duration-150 group-hover:scale-100 group-hover:opacity-100">
+            {hobby.label}
+          </span>
+        </div>
+      </div>
+    ))}
+  </div>
+</div>
+
+<style>
+  @keyframes orbit-spin {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+  @keyframes orbit-spin-reverse {
+    to {
+      transform: rotate(-360deg);
+    }
+  }
+  @keyframes orbit-pulse {
+    0%,
+    100% {
+      box-shadow: 0 0 0 0 rgba(0, 109, 119, 0.25);
+    }
+    50% {
+      box-shadow: 0 0 0 8px rgba(0, 109, 119, 0);
+    }
+  }
+
+  .orbit-center {
+    animation: orbit-pulse 3s ease-in-out infinite;
+  }
+
+  .orbit-ring-inner {
+    animation: orbit-spin 42s linear infinite;
+  }
+  .orbit-ring-outer {
+    animation: orbit-spin-reverse 64s linear infinite;
+  }
+
+  .orbit-counter-spin {
+    animation: orbit-spin-reverse 42s linear infinite;
+  }
+  .orbit-ring-outer .orbit-counter-spin {
+    animation-name: orbit-spin;
+    animation-duration: 64s;
+  }
+
+  .orbit-wrap:hover .orbit-ring-inner,
+  .orbit-wrap:hover .orbit-ring-outer,
+  .orbit-wrap:hover .orbit-counter-spin {
+    animation-play-state: paused;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .orbit-center,
+    .orbit-ring-inner,
+    .orbit-ring-outer,
+    .orbit-counter-spin {
+      animation: none;
+    }
+  }
+</style>

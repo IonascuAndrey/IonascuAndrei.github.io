@@ -13,36 +13,34 @@ const ctaPrimary = `${ctaBase} bg-accent text-white hover:bg-slate-900`;
 const ctaSecondary = `${ctaBase} border border-slate-300 text-slate-700 hover:border-accent hover:text-accent`;
 ---
 
-<section id="contact" class="mx-auto max-w-5xl px-6 py-20">
-  <h2 class="font-serif text-3xl font-bold text-slate-900">Contact</h2>
-  <p class="mt-4 max-w-xl text-slate-600">
-    <slot>
-      Open to data engineering and ML roles, collaborations, and conversations.
-    </slot>
-  </p>
+<h2 class="font-serif text-3xl font-bold text-slate-900">Contact</h2>
+<p class="mt-4 max-w-xl text-slate-600">
+  <slot>
+    Open to data engineering and ML roles, collaborations, and conversations.
+  </slot>
+</p>
 
-  <div class="mt-6 flex flex-wrap gap-4">
-    <a href={`mailto:${contact.email}`} class={ctaPrimary}>
-      <Mail size={16} />
-      {contact.email}
-    </a>
-    <a
-      href={contact.linkedin}
-      target="_blank"
-      rel="noopener noreferrer"
-      class={ctaSecondary}
-    >
-      <ExternalLink size={16} />
-      LinkedIn
-    </a>
-    <a
-      href={contact.github}
-      target="_blank"
-      rel="noopener noreferrer"
-      class={ctaSecondary}
-    >
-      <ExternalLink size={16} />
-      GitHub
-    </a>
-  </div>
-</section>
+<div class="mt-6 flex flex-wrap gap-4">
+  <a href={`mailto:${contact.email}`} class={ctaPrimary}>
+    <Mail size={16} />
+    {contact.email}
+  </a>
+  <a
+    href={contact.linkedin}
+    target="_blank"
+    rel="noopener noreferrer"
+    class={ctaSecondary}
+  >
+    <ExternalLink size={16} />
+    LinkedIn
+  </a>
+  <a
+    href={contact.github}
+    target="_blank"
+    rel="noopener noreferrer"
+    class={ctaSecondary}
+  >
+    <ExternalLink size={16} />
+    GitHub
+  </a>
+</div>

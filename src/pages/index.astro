@@ -3,6 +3,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import Header from "../components/Header.astro";
 import Hero from "../components/Hero.astro";
 import About from "../components/About.astro";
+import PageSection from "../components/PageSection.astro";
 import Skills from "../components/Skills.astro";
 import Experience from "../components/Experience.astro";
 import Projects from "../components/Projects.astro";
@@ -24,22 +25,30 @@ import FadeIn from "../components/FadeIn";
       <About />
     </FadeIn>
     <FadeIn client:visible>
-      <Skills />
+      <PageSection id="skills">
+        <Skills />
+        <div id="certifications" class="mt-16 border-t border-slate-200 pt-16">
+          <Certifications />
+        </div>
+      </PageSection>
     </FadeIn>
     <FadeIn client:visible>
-      <Experience />
+      <PageSection id="experience">
+        <Experience />
+      </PageSection>
     </FadeIn>
     <FadeIn client:visible>
-      <Projects />
+      <PageSection id="projects">
+        <Projects />
+      </PageSection>
     </FadeIn>
     <FadeIn client:visible>
-      <Certifications />
-    </FadeIn>
-    <FadeIn client:visible>
-      <Leadership />
-    </FadeIn>
-    <FadeIn client:visible>
-      <Contact />
+      <PageSection id="leadership">
+        <Leadership />
+        <div id="contact" class="mt-16 border-t border-slate-200 pt-16">
+          <Contact />
+        </div>
+      </PageSection>
     </FadeIn>
   </main>
   <Footer />

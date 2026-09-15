@@ -1,34 +1,41 @@
 ---
-interface Props {
-  headshotSrc?: string;
-  headshotAlt?: string;
-}
-
-const { headshotSrc, headshotAlt = "Portrait of Ionașcu Andrei" } = Astro.props;
+import HobbyOrbit from "./HobbyOrbit.astro";
 ---
 
 <section
   id="about"
-  class="mx-auto grid max-w-5xl gap-10 px-6 py-20 md:grid-cols-[2fr_1fr] md:items-start"
+  class="relative flex min-h-screen flex-col justify-center px-6 py-24 md:py-32"
 >
-  <div>
-    <h2 class="font-serif text-3xl font-bold text-slate-900">About</h2>
-    <div class="mt-4 space-y-4 border-l-2 border-accent/40 pl-5 text-slate-600">
-      <slot>
-        <p>
-          Data/ML Engineer with a foundation in Python, SQL, and cloud data
-          platforms, currently building pipelines at Endava while pursuing an
-          MSc in Data Science at Uppsala University.
-        </p>
-      </slot>
+  <div class="mx-auto grid w-full max-w-5xl gap-12 md:grid-cols-[1.15fr_1fr] md:items-center">
+    <div>
+      <h2 class="font-serif text-3xl font-bold text-slate-900">About</h2>
+      <div class="mt-6 space-y-5 border-l-2 border-accent/40 pl-5 text-slate-600">
+        <slot>
+          <p>
+            I'm a Data/ML Engineer at Endava, where I build Excel-to-database
+            pipelines in Python and pandas that cut manual analysis time by
+            roughly 90%, and work with Azure and Snowflake on an insurance
+            underwriting workbench. I hold a BSc in Computer Science from the
+            University of Bucharest and am currently building toward an MSc in
+            Data Science at Uppsala University (2026–2028).
+          </p>
+          <p>
+            My bachelor's thesis explored multimodal emotion recognition across
+            text, audio, and image, and I've since written up an LLM persona
+            bias experiment as a submission to CATS 2026. Outside of
+            engineering, I stay involved internationally — through the Leaders
+            Foundation, the Susterum accelerator, and hackathons spanning tech
+            exchange and AI governance policy.
+          </p>
+        </slot>
+      </div>
+    </div>
+
+    <div>
+      <HobbyOrbit />
+      <p class="mt-6 text-center font-mono text-xs uppercase tracking-widest text-slate-400">
+        Literature · Traveling · Hiking · Running · Philosophy · Culture
+      </p>
     </div>
   </div>
-
-  {headshotSrc && (
-    <img
-      src={headshotSrc}
-      alt={headshotAlt}
-      class="aspect-square w-full max-w-xs rounded-lg object-cover md:justify-self-end"
-    />
-  )}
 </section>

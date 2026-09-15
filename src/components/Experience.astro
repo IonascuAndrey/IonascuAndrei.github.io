@@ -11,26 +11,24 @@ function formatRange(start: string, end?: string) {
 }
 ---
 
-<section id="experience" class="mx-auto max-w-5xl px-6 py-20">
-  <h2 class="font-serif text-3xl font-bold text-slate-900">Experience</h2>
-  <div class="mt-8 space-y-10">
-    {experience.map(({ data }) => (
-      <div class="grid gap-2 border-t border-slate-200 pt-6 md:grid-cols-[10rem_1fr] md:gap-8">
-        <p class="flex items-center gap-1.5 font-mono text-xs uppercase tracking-wide text-slate-500">
-          <CircleDot size={12} className="text-accent" />
-          {formatRange(data.start, data.end)}
-        </p>
-        <div>
-          <h3 class="font-serif text-xl font-semibold text-slate-900">
-            {data.role} · {data.company}
-          </h3>
-          <ul class="mt-3 list-disc space-y-1 pl-5 text-slate-600">
-            {data.highlights.map((point) => (
-              <li>{point}</li>
-            ))}
-          </ul>
-        </div>
+<h2 class="font-serif text-3xl font-bold text-slate-900">Experience</h2>
+<div class="mt-8 space-y-10">
+  {experience.map(({ data }) => (
+    <div class="grid gap-2 border-t border-slate-200 pt-6 md:grid-cols-[10rem_1fr] md:gap-8">
+      <p class="flex items-center gap-1.5 font-mono text-xs uppercase tracking-wide text-slate-500">
+        <CircleDot size={12} className="text-accent" />
+        {formatRange(data.start, data.end)}
+      </p>
+      <div>
+        <h3 class="font-serif text-xl font-semibold text-slate-900">
+          {data.role} · {data.company}
+        </h3>
+        <ul class="mt-3 list-disc space-y-1 pl-5 text-slate-600">
+          {data.highlights.map((point) => (
+            <li>{point}</li>
+          ))}
+        </ul>
       </div>
-    ))}
-  </div>
-</section>
+    </div>
+  ))}
+</div>
