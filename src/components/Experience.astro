@@ -1,5 +1,6 @@
 ---
 import { getCollection } from "astro:content";
+import { CircleDot } from "lucide-react";
 
 const experience = (await getCollection("experience")).sort((a, b) =>
   b.data.start.localeCompare(a.data.start),
@@ -15,7 +16,8 @@ function formatRange(start: string, end?: string) {
   <div class="mt-8 space-y-10">
     {experience.map(({ data }) => (
       <div class="grid gap-2 border-t border-slate-200 pt-6 md:grid-cols-[10rem_1fr] md:gap-8">
-        <p class="font-mono text-xs uppercase tracking-wide text-slate-500">
+        <p class="flex items-center gap-1.5 font-mono text-xs uppercase tracking-wide text-slate-500">
+          <CircleDot size={12} className="text-accent" />
           {formatRange(data.start, data.end)}
         </p>
         <div>

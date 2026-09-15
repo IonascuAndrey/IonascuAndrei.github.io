@@ -1,5 +1,6 @@
 ---
 import { getCollection } from "astro:content";
+import { BadgeCheck } from "lucide-react";
 
 const certifications = await getCollection("certifications");
 ---
@@ -8,11 +9,14 @@ const certifications = await getCollection("certifications");
   <h2 class="font-serif text-3xl font-bold text-slate-900">Certifications</h2>
   <ul class="mt-8 flex flex-wrap gap-3">
     {certifications.map(({ data }) => (
-      <li class="rounded-md border border-slate-200 px-4 py-3">
-        <p class="text-sm font-medium text-slate-900">{data.name}</p>
-        <p class="font-mono text-xs text-slate-500">
-          {data.issuer} · {data.date}
-        </p>
+      <li class="flex items-start gap-2.5 rounded-md border border-slate-200 px-4 py-3">
+        <BadgeCheck size={18} className="mt-0.5 shrink-0 text-accent" />
+        <div>
+          <p class="text-sm font-medium text-slate-900">{data.name}</p>
+          <p class="font-mono text-xs text-slate-500">
+            {data.issuer} · {data.date}
+          </p>
+        </div>
       </li>
     ))}
   </ul>

@@ -1,4 +1,6 @@
 ---
+import { Globe } from "lucide-react";
+
 interface LeadershipItem {
   title: string;
   description: string;
@@ -37,11 +39,14 @@ const items: LeadershipItem[] = [
   </h2>
   <ul class="mt-8 grid gap-4 sm:grid-cols-2">
     {items.map((item) => (
-      <li class="rounded-md border border-slate-200 p-4">
-        <p class="font-serif text-base font-semibold text-slate-900">
-          {item.title}
-        </p>
-        <p class="mt-1 text-sm text-slate-600">{item.description}</p>
+      <li class="flex items-start gap-3 rounded-md border border-slate-200 p-4">
+        <Globe size={18} className="mt-0.5 shrink-0 text-accent" />
+        <div>
+          <p class="font-serif text-base font-semibold text-slate-900">
+            {item.title}
+          </p>
+          <p class="mt-1 text-sm text-slate-600">{item.description}</p>
+        </div>
       </li>
     ))}
   </ul>
