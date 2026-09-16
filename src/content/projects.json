@@ -20,23 +20,20 @@
     ]
   },
   {
-    "id": "llm-persona-bias-experiment",
-    "title": "LLM Persona Bias Experiment",
-    "summary": "A factorial study of how assigning an LLM a persona shifts its outputs, written up as a CATS 2026 submission.",
-    "problem": "Assigning an LLM a persona (a demographic or professional identity) can bias its outputs, but how much the effect varies across models and prompt types is poorly quantified.",
-    "approach": "Designed a factorial experiment crossing four LLMs, seven personas, and three prompt types, running five repetitions per cell to control for sampling variance.",
-    "stack": [
-      "LLM experiment design",
-      "prompt engineering",
-      "statistical analysis"
-    ],
-    "outcome": "Findings were written up as a submission to CATS 2026, quantifying how persona framing shifts LLM outputs across models and prompt types.",
+    "id": "paternalistic-filter",
+    "title": "The Paternalistic Filter",
+    "summary": "An audit of four LLMs acting as history tutors, testing roughly 1,800 responses about the 1989 Romanian Revolution for differential treatment across student personas.",
+    "problem": "Safety-aligned LLMs used as tutors can treat students differently based on perceived identity, but whether marginalized students receive systematically worse educational support was unverified.",
+    "approach": "Ran an API audit of four LLMs role-playing as history tutors, generating roughly 1,800 responses to student personas varying by ethnicity and socioeconomic status, then coded the responses for refusal rate, explanatory depth, and framing language.",
+    "stack": ["LLM auditing", "prompt engineering", "qualitative coding"],
+    "outcome": "Identified four patterns of what the paper terms 'epistemic paternalism' (including safety models refusing roughly three-quarters of educational requests from lower-income personas), published with co-authors Alexis Popovici and Adrian-Marius Dumitran.",
     "metrics": [
-      { "label": "LLMs", "value": "4" },
-      { "label": "Personas", "value": "7" },
-      { "label": "Prompt types", "value": "3" },
-      { "label": "Runs per cell", "value": "5" }
-    ]
+      { "label": "LLMs audited", "value": "4" },
+      { "label": "Responses coded", "value": "~1,800" },
+      { "label": "Bias patterns found", "value": "4" },
+      { "label": "Low-income refusal rate", "value": "~75%" }
+    ],
+    "links": { "paper": "https://arxiv.org/abs/2607.11292" }
   },
   {
     "id": "taskflow",

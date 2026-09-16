@@ -1,34 +1,47 @@
 ---
-import { Globe } from "lucide-react";
+import {
+  Users,
+  Rocket,
+  Globe,
+  Landmark,
+  Plane,
+  type LucideIcon,
+} from "lucide-react";
 
 interface LeadershipItem {
   title: string;
   description: string;
+  icon: LucideIcon;
 }
 
 const items: LeadershipItem[] = [
   {
     title: "Leaders Foundation",
     description: "Community manager for this peer leadership network.",
+    icon: Users,
   },
   {
     title: "Susterum Accelerator",
     description: "Member of this EU sustainability-focused accelerator cohort.",
+    icon: Rocket,
   },
   {
     title: "EuroTech x HKTE Hackathon",
     description:
       "Took part in this hackathon connecting European and Hong Kong tech talent.",
+    icon: Globe,
   },
   {
     title: "DPIN Brussels AI Governance Hackathon",
     description:
       "Helped organize this hackathon focused on AI governance policy.",
+    icon: Landmark,
   },
   {
     title: "Erasmus+",
     description:
       "Took part in this EU-funded international student exchange program.",
+    icon: Plane,
   },
 ];
 ---
@@ -36,16 +49,97 @@ const items: LeadershipItem[] = [
 <h2 class="font-serif text-3xl font-bold text-slate-900">
   Leadership &amp; International Engagement
 </h2>
-<ul class="mt-8 grid gap-4 sm:grid-cols-2">
-  {items.map((item) => (
-    <li class="flex items-start gap-3 rounded-md border border-slate-200 p-4">
-      <Globe size={18} className="mt-0.5 shrink-0 text-accent" />
-      <div>
-        <p class="font-serif text-base font-semibold text-slate-900">
-          {item.title}
-        </p>
-        <p class="mt-1 text-sm text-slate-600">{item.description}</p>
-      </div>
-    </li>
-  ))}
-</ul>
+
+<div id="leadership-timeline" class="relative mx-auto mt-12 max-w-3xl">
+  <div class="absolute left-4 top-0 h-full w-px border-l border-dashed border-slate-300 md:left-1/2 md:-translate-x-1/2"></div>
+
+  <div class="space-y-10 md:space-y-14">
+    {items.map((item, i) => {
+      const onRight = i % 2 === 1;
+      return (
+        <div class="leadership-item relative pl-12 opacity-0 transition-all duration-700 ease-out md:grid md:grid-cols-2 md:gap-x-10 md:pl-0">
+          <span
+            data-side={onRight ? "right" : "left"}
+            class="leadership-dot absolute left-4 top-0 flex h-8 w-8 -translate-x-1/2 items-center justify-center rounded-full border-2 border-slate-300 bg-background text-slate-400 transition-colors duration-500 md:left-1/2"
+          >
+            <item.icon size={15} />
+          </span>
+
+          {onRight ? (
+            <>
+              <div class="hidden md:block" />
+              <div class="md:pl-9">
+                <p class="font-serif text-base font-semibold text-slate-900">
+                  {item.title}
+                </p>
+                <p class="mt-1 text-sm text-slate-600">{item.description}</p>
+              </div>
+            </>
+          ) : (
+            <>
+              <div class="md:pr-9 md:text-right">
+                <p class="font-serif text-base font-semibold text-slate-900">
+                  {item.title}
+                </p>
+                <p class="mt-1 text-sm text-slate-600">{item.description}</p>
+              </div>
+              <div class="hidden md:block" />
+            </>
+          )}
+        </div>
+      );
+    })}
+  </div>
+</div>
+
+<style>
+  .leadership-item:has(.leadership-dot[data-side="left"]) {
+    transform: translateY(0.75rem) translateX(-0.75rem);
+  }
+  .leadership-item:has(.leadership-dot[data-side="right"]) {
+    transform: translateY(0.75rem) translateX(0.75rem);
+  }
+
+  .leadership-item.revealed {
+    opacity: 1;
+    transform: translate(0, 0);
+  }
+  .leadership-item.revealed .leadership-dot {
+    border-color: var(--color-accent);
+    background-color: var(--color-accent);
+    color: white;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .leadership-item {
+      opacity: 1;
+      transform: none;
+      transition: none;
+    }
+  }
+</style>
+
+<script>
+  const items = document.querySelectorAll<HTMLElement>(".leadership-item");
+
+  const reduceMotion = window.matchMedia(
+    "(prefers-reduced-motion: reduce)",
+  ).matches;
+
+  if (reduceMotion) {
+    items.forEach((item) => item.classList.add("revealed"));
+  } else if (items.length) {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("revealed");
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.2, rootMargin: "0px 0px -10% 0px" },
+    );
+    items.forEach((item) => observer.observe(item));
+  }
+</script>

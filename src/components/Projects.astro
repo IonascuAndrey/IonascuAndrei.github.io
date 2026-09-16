@@ -58,12 +58,22 @@ const other = allProjects.filter((p) => !p.data.problem);
         ))}
       </ul>
 
-      {data.links && (data.links.repo || data.links.demo) && (
-        <div class="mt-4 flex gap-4 text-sm font-medium text-accent">
-          {data.links.repo && <a href={data.links.repo}>Repo</a>}
-          {data.links.demo && <a href={data.links.demo}>Demo</a>}
-        </div>
-      )}
+      {data.links &&
+        (data.links.repo || data.links.demo || data.links.paper) && (
+          <div class="mt-4 flex gap-4 text-sm font-medium text-accent">
+            {data.links.repo && <a href={data.links.repo}>Repo</a>}
+            {data.links.demo && <a href={data.links.demo}>Demo</a>}
+            {data.links.paper && (
+              <a
+                href={data.links.paper}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Paper
+              </a>
+            )}
+          </div>
+        )}
     </article>
   ))}
 </div>
