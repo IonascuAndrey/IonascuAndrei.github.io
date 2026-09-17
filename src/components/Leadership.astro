@@ -1,47 +1,83 @@
 ---
 import {
-  Users,
-  Rocket,
-  Globe,
-  Landmark,
   Plane,
+  Users,
+  Globe,
+  GraduationCap,
+  Handshake,
+  Rocket,
+  Sparkles,
+  Landmark,
   type LucideIcon,
 } from "lucide-react";
 
 interface LeadershipItem {
   title: string;
+  date: string;
+  status?: "present" | "upcoming";
   description: string;
   icon: LucideIcon;
 }
 
 const items: LeadershipItem[] = [
   {
+    title: "Erasmus+",
+    date: "2022",
+    description:
+      "Took part in this EU-funded international student exchange program.",
+    icon: Plane,
+  },
+  {
     title: "Leaders Foundation",
+    date: "May 2025 - Present",
+    status: "present",
     description: "Community manager for this peer leadership network.",
     icon: Users,
   },
   {
-    title: "Susterum Accelerator",
-    description: "Member of this EU sustainability-focused accelerator cohort.",
-    icon: Rocket,
-  },
-  {
     title: "EuroTech x HKTE Hackathon",
+    date: "June 2025",
     description:
-      "Took part in this hackathon connecting European and Hong Kong tech talent.",
+      "Volunteered at this hackathon connecting European and Hong Kong tech talent.",
     icon: Globe,
   },
   {
-    title: "DPIN Brussels AI Governance Hackathon",
+    title: "Leadership Summer School",
+    date: "2026",
     description:
-      "Helped organize this hackathon focused on AI governance policy.",
-    icon: Landmark,
+      "Took part in this program run by the Mummert Alumni Association, and stayed on as a member of its alumni community.",
+    icon: GraduationCap,
   },
   {
-    title: "Erasmus+",
+    title: "EuroTech Federation",
+    date: "Sep 2026 - Present",
+    status: "present",
+    description: "Core team member on community and fellowship.",
+    icon: Handshake,
+  },
+  {
+    title: "Susterum Accelerator",
+    date: "Oct 2026 - Jun 2027",
+    status: "upcoming",
     description:
-      "Took part in this EU-funded international student exchange program.",
-    icon: Plane,
+      "Member of the first cohort of this EU community-building accelerator, a nine-month program.",
+    icon: Rocket,
+  },
+  {
+    title: "Apply AI Summit",
+    date: "Nov 17, 2026",
+    status: "upcoming",
+    description:
+      "Attending this European Commission summit on AI adoption, in Brussels.",
+    icon: Sparkles,
+  },
+  {
+    title: "DPIN",
+    date: "Starting 2027",
+    status: "upcoming",
+    description:
+      "Took part in the DPIN Brussels AI Governance Hackathon, and joining the core team starting in 2027.",
+    icon: Landmark,
   },
 ];
 ---
@@ -56,6 +92,24 @@ const items: LeadershipItem[] = [
   <div class="space-y-10 md:space-y-14">
     {items.map((item, i) => {
       const onRight = i % 2 === 1;
+      const badgeClass =
+        item.status === "present"
+          ? "bg-accent/10 text-accent"
+          : "bg-slate-100 text-slate-500";
+      const dateRow = (justify: string) => (
+        <p
+          class={`flex flex-wrap items-center gap-2 font-mono text-xs uppercase tracking-wide text-slate-500 ${justify}`}
+        >
+          <span>{item.date}</span>
+          {item.status && (
+            <span
+              class={`rounded-full px-2 py-0.5 text-[10px] font-semibold normal-case tracking-normal ${badgeClass}`}
+            >
+              {item.status === "present" ? "Present" : "Upcoming"}
+            </span>
+          )}
+        </p>
+      );
       return (
         <div class="leadership-item relative pl-12 opacity-0 transition-all duration-700 ease-out md:grid md:grid-cols-2 md:gap-x-10 md:pl-0">
           <span
@@ -69,7 +123,8 @@ const items: LeadershipItem[] = [
             <>
               <div class="hidden md:block" />
               <div class="md:pl-9">
-                <p class="font-serif text-base font-semibold text-slate-900">
+                {dateRow("md:justify-start")}
+                <p class="mt-1 font-serif text-base font-semibold text-slate-900">
                   {item.title}
                 </p>
                 <p class="mt-1 text-sm text-slate-600">{item.description}</p>
@@ -78,7 +133,8 @@ const items: LeadershipItem[] = [
           ) : (
             <>
               <div class="md:pr-9 md:text-right">
-                <p class="font-serif text-base font-semibold text-slate-900">
+                {dateRow("md:justify-end")}
+                <p class="mt-1 font-serif text-base font-semibold text-slate-900">
                   {item.title}
                 </p>
                 <p class="mt-1 text-sm text-slate-600">{item.description}</p>
