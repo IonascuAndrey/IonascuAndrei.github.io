@@ -5,10 +5,11 @@
     "company": "Endava",
     "start": "2025-05",
     "highlights": [
-      "Built Excel-to-standardized-database pipelines in Python and pandas using header-similarity bucketing, regex filtering, and header diffing.",
-      "Reduced manual analysis time by roughly 90% across the pipeline.",
-      "Worked on an insurance underwriting workbench on Azure and Snowflake.",
-      "Joined the team through the selective Dava.X Academy."
+      "Redesigned the data analysis workflow and automated it in Python, cutting manual processing work by 90%.",
+      "Built Python scripts that turn raw data into 100% reliable, analysis-ready output, replacing error-prone manual review.",
+      "Implemented data manipulation procedures in Snowflake, with the full pipeline hosted on Azure.",
+      "Delivered faster, more complete analysis that minimized client back-and-forth while surfacing everything needed to build the right solution.",
+      "Joined the team through the selective Dava.X Academy, completing professional-led courses in SDLC, PL-SQL, Machine Learning, Prompt Engineering, Data Modeling, ETL/ELT, and Reporting."
     ]
   },
   {
@@ -18,8 +19,8 @@
     "start": "2021-07",
     "end": "2022-10",
     "highlights": [
-      "Built PrestaShop e-commerce modules in PHP, MySQL, and JavaScript.",
-      "Full-stack shipping experience that predates the current data-engineering focus."
+      "Owned PrestaShop e-commerce modules end to end: design, development, testing, and post-launch support.",
+      "Built backend logic in PHP and dynamic storefronts with JavaScript, AJAX, HTML, CSS, and Smarty templates."
     ]
   }
 ]
