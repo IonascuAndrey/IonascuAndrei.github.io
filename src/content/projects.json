@@ -4,7 +4,7 @@
     "title": "Multimodal Emotion Recognition",
     "summary": "Bachelor's thesis comparing six models across text, audio, and image modalities with three fusion strategies and built-in explainability.",
     "problem": "Emotion recognition models trained on a single modality (text, audio, or image alone) miss cues that only surface when the signals are considered together.",
-    "approach": "Trained and compared six models spanning text, audio, and image inputs; evaluated three fusion strategies for combining them; applied Integrated Gradients and Grad-CAM to explain model predictions; built a feature-caching layer so repeated experiments reused precomputed embeddings instead of recomputing them.",
+    "approach": "Trained and compared six models across text, audio, and image inputs, evaluated three fusion strategies for combining them, and applied Integrated Gradients and Grad-CAM to explain each prediction.",
     "stack": [
       "Python",
       "PyTorch",
@@ -12,7 +12,7 @@
       "Integrated Gradients",
       "Grad-CAM"
     ],
-    "outcome": "The feature-caching layer cut experiment turnaround from hours to minutes, making it practical to run far more fusion-strategy comparisons within the thesis timeline.",
+    "outcome": "A feature-caching layer that reused precomputed embeddings cut experiment turnaround from hours to minutes, making it practical to run far more fusion-strategy comparisons within the thesis timeline.",
     "metrics": [
       { "label": "Models compared", "value": "6" },
       { "label": "Fusion strategies", "value": "3" },
@@ -24,9 +24,14 @@
     "title": "The Paternalistic Filter",
     "summary": "An audit of four LLMs acting as history tutors, testing roughly 1,800 responses about the 1989 Romanian Revolution for differential treatment across student personas.",
     "problem": "Safety-aligned LLMs used as tutors can treat students differently based on perceived identity, but whether marginalized students receive systematically worse educational support was unverified.",
-    "approach": "Ran an API audit of four LLMs role-playing as history tutors, generating roughly 1,800 responses to student personas varying by ethnicity and socioeconomic status, then coded the responses for refusal rate, explanatory depth, and framing language.",
-    "stack": ["LLM auditing", "prompt engineering", "qualitative coding"],
-    "outcome": "Identified four patterns of what the paper terms 'epistemic paternalism' (including safety models refusing roughly three-quarters of educational requests from lower-income personas), published with co-authors Alexis Popovici and Adrian-Marius Dumitran.",
+    "approach": "Ran an API audit of four LLMs role-playing as history tutors, generating roughly 1,800 responses to personas varying by ethnicity and socioeconomic status, then coded each response for refusal rate, explanatory depth, and framing language.",
+    "stack": [
+      "LLM auditing",
+      "prompt engineering",
+      "qualitative coding",
+      "bias analysis"
+    ],
+    "outcome": "Identified four patterns of what the paper terms 'epistemic paternalism,' including safety models refusing about three-quarters of educational requests from lower-income personas.",
     "metrics": [
       { "label": "LLMs audited", "value": "4" },
       { "label": "Responses coded", "value": "~1,800" },
@@ -55,10 +60,16 @@
     "links": { "repo": "https://github.com/IonascuAndrey/Library-Database" }
   },
   {
+    "id": "falloc",
+    "title": "Falloc",
+    "summary": "A two-person Best-Fit memory allocator using mmap for direct memory management, mutexes for thread safety, and memory protection to guard allocated regions, minimizing internal and external fragmentation for multithreaded workloads.",
+    "stack": ["C", "mmap", "mutexes", "memory protection"]
+  },
+  {
     "id": "bacpebune",
     "title": "BacPeBune",
-    "summary": "A two-person Best-Fit memory allocator using mmap for direct memory management, mutexes for thread safety, and memory protection to guard allocated regions, minimizing internal and external fragmentation for multithreaded workloads.",
-    "stack": ["C", "mmap", "mutexes", "memory protection"],
+    "summary": "A team-built exam-prep platform for Romanian high schoolers studying for the Bacalaureat in Math and Computer Science, with real-time chat and an interactive mind-mapping tool.",
+    "stack": ["C#", "ASP.NET Core MVC", "MySQL", "SignalR", "React"],
     "links": { "repo": "https://github.com/IonascuAndrey/BacPeBune" }
   }
 ]
