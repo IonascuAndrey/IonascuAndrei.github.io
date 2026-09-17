@@ -28,7 +28,7 @@ const outerRing: Hobby[] = [
 ];
 
 function position(radiusPct: number, angleDeg: number) {
-  const rad = (angleDeg - 90) * (Math.PI / 180);
+  const rad = ((angleDeg - 90) * Math.PI) / 180;
   const x = 50 + radiusPct * Math.cos(rad);
   const y = 50 + radiusPct * Math.sin(rad);
   return `left: ${x}%; top: ${y}%;`;
@@ -39,11 +39,16 @@ function position(radiusPct: number, angleDeg: number) {
   <div class="absolute left-1/2 top-1/2 aspect-square w-[64%] -translate-x-1/2 -translate-y-1/2 rounded-full border border-dashed border-slate-300"></div>
   <div class="absolute left-1/2 top-1/2 aspect-square w-[96%] -translate-x-1/2 -translate-y-1/2 rounded-full border border-dashed border-slate-200"></div>
 
-  <div class="orbit-center absolute left-1/2 top-1/2 h-3 w-3 -translate-x-1/2 -translate-y-1/2 rounded-full bg-accent"></div>
+  <div class="orbit-center absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 whitespace-nowrap rounded-full bg-background px-3 py-1.5 font-mono text-[10px] font-semibold uppercase tracking-widest text-accent">
+    Hobbies
+  </div>
 
-  <div class="orbit-ring orbit-ring-inner absolute inset-0">
+  <div class="orbit-ring orbit-ring-inner pointer-events-none absolute inset-0">
     {innerRing.map((hobby) => (
-      <div class="orbit-item absolute" style={position(32, hobby.angle)}>
+      <div
+        class="orbit-item pointer-events-auto absolute"
+        style={position(32, hobby.angle)}
+      >
         <div class="orbit-counter-spin group relative -translate-x-1/2 -translate-y-1/2">
           <span class="flex h-11 w-11 items-center justify-center rounded-full border border-slate-200 bg-background text-slate-600 shadow-sm transition-colors group-hover:border-accent group-hover:text-accent">
             <hobby.icon size={18} />
@@ -56,9 +61,12 @@ function position(radiusPct: number, angleDeg: number) {
     ))}
   </div>
 
-  <div class="orbit-ring orbit-ring-outer absolute inset-0">
+  <div class="orbit-ring orbit-ring-outer pointer-events-none absolute inset-0">
     {outerRing.map((hobby) => (
-      <div class="orbit-item absolute" style={position(48, hobby.angle)}>
+      <div
+        class="orbit-item pointer-events-auto absolute"
+        style={position(48, hobby.angle)}
+      >
         <div class="orbit-counter-spin group relative -translate-x-1/2 -translate-y-1/2">
           <span class="flex h-11 w-11 items-center justify-center rounded-full border border-slate-200 bg-background text-slate-600 shadow-sm transition-colors group-hover:border-accent group-hover:text-accent">
             <hobby.icon size={18} />
@@ -86,10 +94,10 @@ function position(radiusPct: number, angleDeg: number) {
   @keyframes orbit-pulse {
     0%,
     100% {
-      box-shadow: 0 0 0 0 rgba(0, 109, 119, 0.25);
+      box-shadow: 0 0 0 0 rgba(0, 109, 119, 0.2);
     }
     50% {
-      box-shadow: 0 0 0 8px rgba(0, 109, 119, 0);
+      box-shadow: 0 0 0 6px rgba(0, 109, 119, 0);
     }
   }
 
@@ -110,12 +118,6 @@ function position(radiusPct: number, angleDeg: number) {
   .orbit-ring-outer .orbit-counter-spin {
     animation-name: orbit-spin;
     animation-duration: 64s;
-  }
-
-  .orbit-wrap:hover .orbit-ring-inner,
-  .orbit-wrap:hover .orbit-ring-outer,
-  .orbit-wrap:hover .orbit-counter-spin {
-    animation-play-state: paused;
   }
 
   @media (prefers-reduced-motion: reduce) {
